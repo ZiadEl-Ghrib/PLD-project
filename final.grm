@@ -1,0 +1,90 @@
+"Start Symbol" = <program>
+
+!--------------Terminal------------
+Identifier = [_]|{letter}{Alphanumeric}*
+int = ('+'|'-')? {digit}+
+double = ('+'|'-')? {digit}+ '.' {digit}+
+string = '"'{Alphanumeric}* {space}* '"'     
+!----------------------------------
+<program> ::= <statement_list>
+
+<statement_list> ::= <statement>
+                   | <statement> <statement_list>
+
+<statement> ::= <assignment_statement>
+              | <if_statement>
+              | <switch>
+              | <while_loop>
+              | <for_loop>
+              | <steps> 
+              | <do_while>
+              | <print_statement>
+!---------Assignment--------------
+<assignment_statement> ::= <identifier> '=' <expression>
+
+
+<identifier> ::= Identifier
+              
+<expression> ::= <expression> '+' <term>
+              | <expression> '-' <term>
+              | <term>
+                
+
+<term> ::= <term> '*' <factor>
+          | <term> '\' <factor>
+          |<term> '%' <factor>
+          |<factor>
+
+<factor> ::= <identifier>
+           | <number>
+           | '(' <expression> ')'
+           
+<number> ::= int | double
+          
+!-------Conditionals---------------
+             
+<if_statement> ::= if '(' <condition> ')' ':'  <statement_list> '$'
+                 | if '(' <condition> ')' ':' <statement_list> '$' <elseif> else ':' <statement_list> '$'
+
+<elseif> ::= <elseif_clause>
+           | <elseif_clause> <elseif> 
+
+<elseif_clause> ::= elseif '(' <condition> ')' ':' <statement_list> '$'
+
+                 
+<condition> ::= <expression> <op> <expression>
+
+<op> ::= '==' | '<' | '>' | '<=' | '>=' | '!='            
+                 
+<switch> ::= switch '(' <identifier> ')' ':' <cases> '$'
+
+<cases> ::= <case> <cases>
+         | <default> 
+          
+
+<case> ::= case <value> ':' <statement_list> break ';' 
+        
+<value> ::= int | double | string
+
+<default> ::= default ':' <statement_list> break ';' 
+
+         
+!-----------Loops----------------
+
+
+<while_loop> ::= while '(' <condition> ')' ':' <statement_list> '$'
+              
+<for_loop> ::= for '(' <assignment_statement> ';' <condition> ';' <steps> ')' ':' <statement_list> '$'
+            
+<steps> ::= '++'<identifier>
+          | '--'<identifier> 
+          | <identifier>'++'
+          | <identifier>'--'
+
+             
+<do_while> ::= do ':' <statement_list> '$' while '(' <condition> ')'
+!--------------------------------
+
+<print_statement> ::= Print '(' <expression> ')' 
+
+
