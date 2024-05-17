@@ -1,5 +1,3 @@
 # PLD-project
-Name: Ziad Wael El-Ghrib
-Section: 3
-
-
+$Name: Ziad Wael El-Ghrib
+$Section: 3
